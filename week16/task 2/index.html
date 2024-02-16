@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Регистрация</h1>
+        <form name="form" class="classForm" novalidate>
+            <div class="wrapper-input">
+                <label for="userName" class="text-field__label">Имя:</label>
+                <input type="text" name="userName" id="userName" class="classInput text-field__input" placeholder="Введите ваше имя" required>
+                <span></span>
+            </div>
+            <div class="wrapper-input">
+                <label for="userEmail" class="text-field__label">Почта:</label>
+                <input type="email" name="userEmail" id="userEmail" class="classInput text-field__input" placeholder="Введите ваш email" required>
+                <span></span>
+            </div>
+            <div class="wrapper-input">
+                <label for="userAge" class="text-field__label">Возраст:</label>
+                <input type="number" name="userAge" id="userAge" class="classInput text-field__input" placeholder="Введите ваш возраст" required>
+                <span></span>
+            </div>
+            <div class="wrapper-input">Пол:<br/>
+                <label for="radio1" class="text-field__label">Мужской</label>
+                <input type="radio" name="userSex" class="classInput radio1" id="radio1">
+                <label for="radio2" class="text-field__label">Женский</label>
+                <input type="radio" name="userSex" class="classInput radio2" id="radio2">
+                <span></span>
+            </div>
+            <div class="wrapper-input">
+                <label for="selectUser" class="text-field__label">Укажите вид профессии:</label>
+                <select name="selectValue" id="selectUser">
+                        <option value="Врач">Врач</option>
+                        <option value="Программист" selected>Программист</option>
+                        <option value="Учитель">Учитель</option>
+                        <option value="Дизайнер">Дизайнер</option>
+                        <option value="Инженер">Инженер</option>
+                        <option value="Продавец">Продавец</option>
+                        <option value="Другое">Другое</option>
+                </select>
+            </div>
+            <div class="wrapper-input password-container">
+                <label for="userPassword" class="text-field__label">Пароль:</label>
+                <input type="password" name="userPass" id="userPassword" class="classInput text-field__input" placeholder="Установите пароль" autocomplete="off" required minlength="8">
+                <div class="toggle-password" id="togglePassword">
+                    <i class="fas fa-eye"></i>
+                </div>
+                <span></span>
+            </div>
+            <div class="wrapper-input">
+                <label for="userAgree" class="text-field__label">Даю согласие на обработку персональных данных</label>
+                <input type="checkbox" name="userAgree" class="agreeInput" id="userAgree" required></br>
+                <span></span>
+            </div>
+            <button type="submit" class="btn-submit" id="submitBtm">Отправить</button>
+        </form>
+    </div>
+    <script src="./script.js"></script>
+</body>
+</html>
