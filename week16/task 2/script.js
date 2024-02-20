@@ -69,7 +69,7 @@ const checkUserName = () =>{
     if(!isRequired(userName)){
         showError(userNameValue, 'Введите ваше имя');
     } else  if(!isBetween(userName.length, min, max)){
-        showError(userNameValue, `Имя должно быть не меньше ${min} и больше ${max} символов.`);
+        showError(userNameValue, `Имя должно быть не меньше ${min} и не больше ${max} символов.`);
     } else{
         showSuccess(userNameValue);
         valid = true;
@@ -99,7 +99,7 @@ const checkUserPassword = () =>{
     if(!isRequired(userPass)){
         showError(userPasswordValue, 'Введите желаемый пароль');
     } else if(!isBetween(userPass.length, min, max)){
-        showError(userPasswordValue, `Пароль не должен быть меньше ${min} и больше ${max} символов.`);
+        showError(userPasswordValue, `Пароль не должен быть меньше ${min} и не больше ${max} символов.`);
     } else if (!passwordValid(userPass)){
         showError(userPasswordValue, 'Пароль должен содержать не менее 8 символов, включая как минимум 1 символ нижнего регистра, 1 символ верхнего регистра, 1 цифру и 1 специальный символ в формате (!@#$%^&*).')
     } else {
@@ -172,15 +172,15 @@ form.addEventListener('submit', (event) => {
                     isValidAge &&
                     isValidCheckbox &&
                     isValidRadio; 
-    const checkValidForm = (formValid) => {
+    form.addEventListener('input',checkValidForm = (formValid) => {
         if (formValid) {
-            submitButton.removeAttribute('disabled');
+            submitButton.removeAttribute('disabled', false);
             return true;
         } else {
             submitButton.setAttribute('disabled', true);
             return false;
         }
-    };
+    });
     if (checkValidForm(formValid)) {
         inputValues();
         form.reset();
