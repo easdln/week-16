@@ -13,49 +13,60 @@
         <div class="input-field">
             <label for="selectedCar">Марка автомобиля</label>
             <select name="select-first" id="selectedCar" class="selected-car">
-                <option value="" selected disabled hidden>Выберите марку автомобиля</option>
+                <option value = "" selected disabled hidden>Выберите марку автомобиля</option>
                 <option value ="renault">Renault</options>
                 <option value ="opel">Opel</options>
                 <option value ="mazda">Mazda</options>
                 <option value ="jaguar">Jaguar</options>
             </select>
+            <span></span>
         </div>
         <div class="input-field">
             <label for="carModel">Модель автомобиля</label>
-            <select name="select-second" id="carModel" class="car-model">
+            <select name="select-second" id="carModel" class="selected-car">
+                <option value="" selected disabled hidden>Выберите модель автомобиля</option>
             </select>
+            <span></span>
         </div>
         <div class="input-field">
             <div class="name-fuel">Тип топлива</div>
-                <input type="radio" name="radio-fuel" value="1.3" class="type-of-fuel custom-radio" id="type-of-gazoline" checked><label for="type-of-gazoline">Бензин</label>
-                <input type="radio" name="radio-fuel" value="1" class="type-of-fuel custom-radio" id="type-of-diezel"><label for="type-of-diezel">Дизель</label>
-                <input type="radio" name="radio-fuel" value="1.1" class="type-of-fuel custom-radio" id="type-of-gas"><label for="type-of-gas">Газ</label>
-                <input type="radio" name="radio-fuel" value="1.5" class="type-of-fuel custom-radio" id="type-of-electricity"><label for="type-of-electricity">Электричество</label>
-        </div>
+                <input type="radio" name="radio-fuel" value="1.2" class="type-of-fuel custom-radio" id="type-of-gazoline"><label for="type-of-gazoline">Бензин</label>
+                <input type="radio" name="radio-fuel" value="0.9" class="type-of-fuel custom-radio" id="type-of-diezel"><label for="type-of-diezel">Дизель</label>
+                <input type="radio" name="radio-fuel" value="1" class="type-of-fuel custom-radio" id="type-of-gas" ><label for="type-of-gas">Газ</label>
+                <input type="radio" name="radio-fuel" value="1.2" class="type-of-fuel custom-radio" id="type-of-electricity"><label for="type-of-electricity">Электричество</label>
+                <span></span>
+            </div>
         <div class="input-field">
             <label for="engineCapacity">Объем двигателя</label>
-            <input type="text" class="engine-capacity" id="engineCapacity">
+            <input type="text" class="engine-capacity" id="engineCapacity" placeholder="от 1.1 до 3.5 литров">
+            <span></span>
         </div>
         <div class="input-field">
             <div class="condition">Состояние автомобиля</div>
                 <input type="radio" name="radio-condition" value="1.5" class="condition-of-car custom-radio" id="conditionCarNew"><label for="conditionCarNew">Новый</label>
                 <input type="radio" name="radio-condition" value="1" class="condition-of-car custom-radio" id="conditionCarUsed"><label for="conditionCarUsed">Подержанный</label>
-        </div>
+                <span></span>
+            </div>
         <div class="input-field hidden-element">
             <div class="owners">Количество владельцев</div>
-                <input type="radio" name="radio-owners" value="1.2" class="number-of-owner custom-radio" id="fewerOwners"><label for="fewerOwners">1-2 владельца</label>
+                <input type="radio" name="radio-owners" value="1.1" class="number-of-owner custom-radio" id="fewerOwners"><label for="fewerOwners">1-2 владельца</label>
                 <input type="radio" name="radio-owners" value="1" class="number-of-owner custom-radio" id="moreOwners"><label for="moreOwners">более 3-х владельцев</label>
-        </div>
+                <span></span>
+            </div>
         <div class="input-field">
             <div class="payment">Способ оплаты</div>
             <input type="radio" name="radio-payment" value="1" class="method-of-payment custom-radio" id="methodCard"><label for="methodCard">Картой</label>
-            <input type="radio" name="radio-payment" value="0.8" class="method-of-payment custom-radio" id="methodCash"><label for="methodCash">Наличными</label>
+            <input type="radio" name="radio-payment" value="0.9" class="method-of-payment custom-radio" id="methodCash"><label for="methodCash">Наличными</label>
             <input type="radio" name="radio-payment" value="1" class="method-of-payment custom-radio" id="methodOther"><label for="methodOther">Счёт на юридическое лицо</label>
+            <span></span>
         </div>
-        <button class="button-form">Рассчитать</button>
-        <div class="result"></div>
+        <div class="wrapper-btn">
+            <!-- <button class="button-form">Рассчитать</button> -->
+            <button class="button-reset" type="reset">Сбросить</button>
+        </div>
     </form>
     </div>
+    <div class="result"></div>
     <script src="./task 3.js"></script>
 </body>
 </html>

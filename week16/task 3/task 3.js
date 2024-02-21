@@ -2,14 +2,15 @@ const form = document.querySelector('.calculationForm');
 const result = document.querySelector('.result');
 const carBrandSelect = document.getElementById('selectedCar');
 const carModelSelect = document.getElementById('carModel');
-const radioFuel = document.querySelectorAll('input[name="radio-fuel"]');
+const radioFuel = document.querySelectorAll ('input[name="radio-fuel"]');
 const radioCondition = document.querySelectorAll('input[name="radio-condition"]');
 const radioOwners = document.querySelectorAll('input[name="radio-owners"]');
 const radioPayment = document.querySelectorAll('input[name="radio-payment"]');
-
-
+const selects = document.querySelectorAll('input[class="selected-car"]');
+const engineCapacityInput = document.getElementById('engineCapacity');
 const buttonForm =document.querySelector('.button-form');
-const inputs = document.querySelectorAll('input[type = "radio"]')
+const buttonReset = document.querySelector('.button-reset');
+
 const optionsRenault = ['...','Logan','Sandero','Kaptur','Duster','Megane'];
 const optionsJaguar = ['...','XF','F-Type','F-Pace','I-Pace','E-Pace'];
 const optionsOpel = ['...','Crossland','Grandland X','Combo Life','Astra'];
@@ -45,11 +46,73 @@ const priceInfo = {
     },
 }
 
+// const validateRadioinputs = (radioGroup) =>{
+//     const checkedRadio = Array.from(radioGroup).filter(radio => radio.checked)
+//     const parentElement = checkedRadio[0].parentElement
+//     if(!checkedRadio) {
+//         console.log('error!')
+//         const errorMessage = parentElement.querySelector('span');
+        
+//         errorMessage.textContent = 'error!';
+//         return false
+//     } else {
+//         console.log(parentElement) 
+//         const successMessage = parentElement.querySelector('span');
+//         successMessage.textContent = 'Готово!'
+//         successMessage.classList.add('success')
+//         return true
+//     }
+// }
+
+const isEngineValid = value => value >=1.1 && value <= 3.5 ? true : false;
+
+const checkEngineCapacityValidity = () =>{
+    const valueInNum = parseFloat(engineCapacityInput.value);
+    const parentInput = engineCapacityInput.parentElement;
+    const errorText = parentInput.querySelector('span');
+    errorText.classList.add('error')
+    if(!isEngineValid(valueInNum)){
+        errorText.textContent = 'Введите значение объема двигателя в литрах от 1.1 до 3.5'
+    } else{
+        errorText.textContent = '';
+        console.log(valueInNum)
+    }
+    
+}
+
+form.addEventListener('input',(evn)=>{
+    switch (evn.target.id) {
+        case 'engineCapacity':
+            checkEngineCapacityValidity();
+            break;
+    }
+})
+
+const calculateEngineCapacity = ()=>{
+    const valueInNum = parseFloat(engineCapacityInput.value);
+    if(valueInNum >= 1.1 && valueInNum <= 2) return 1;
+    if(valueInNum >= 2.1 && valueInNum <= 2.8) return 1.1;
+    if(valueInNum >= 2.9 && valueInNum <= 3.5) return 1.2;
+};
+
+carModelSelect.disabled = true;
+const setDisabledSelect = () =>{
+    if(carBrandSelect.value !== ''){
+    carModelSelect.disabled = false;
+    } else{carModelSelect.disabled = true;};
+}
+
+const addOptions = (selectBrand, modelsArr) =>{
+    modelsArr.forEach(model => {
+        const optionElement = document.createElement('option');
+        optionElement.textContent = model;
+        optionElement.value = model;
+        selectBrand.appendChild(optionElement);
+    });
+};
 
 const choosingCarBrand = () =>{
     const selectedBrand = carBrandSelect.value;
-    const selectedModel = carModelSelect.value;
-    console.log(selectedBrand, selectedModel);
     carModelSelect.innerHTML = '';
     if(selectedBrand === 'renault'){
         addOptions(carModelSelect,optionsRenault);
@@ -59,32 +122,55 @@ const choosingCarBrand = () =>{
         addOptions(carModelSelect,optionsMazda);
     } else if(selectedBrand === 'jaguar'){
         addOptions(carModelSelect,optionsJaguar);
-    };
-}
-
-const addOptions = (selectBrand, modelsArr) =>{
-    modelsArr.forEach(model => {
-        const optionElement = document.createElement('option');
-        optionElement.innerHTML = model;
-        optionElement.value = model;
-        selectBrand.appendChild(optionElement);
-    });
-}
-
-const calculatePrice = () =>{
-    const selectedBrand = carBrandSelect.value;
-    const selectedModel = carModelSelect.value;
-    console.log(selectedModel)
-    let price = selectedBrand !== '' && selectedModel !== '' ? priceInfo[selectedBrand][selectedModel] : 0;
-    result.textContent = `Price: ${price}`
-    const formatter = new Intl.NumberFormat('ru-RU');
-    result.textContent = formatter.format(price);
+    }
 };
 
-form.addEventListener('change', () =>{
+const getHiddenElem = ()=>{
+    const hiddenDiv = document.querySelector('.hidden-element');
+    const conditionCarUsed = document.querySelector('#conditionCarUsed');
+    if(conditionCarUsed.checked){
+        hiddenDiv.style.display = 'block';
+    } else{hiddenDiv.style.display = 'none';}
+};
+
+const getRadioChecked = (radioInputs)=>{
+    const checkedRadio = [...radioInputs].find(radio => radio.checked);
+    return checkedRadio ? parseFloat(checkedRadio.value) : 1;
+}
+
+const choosingCarOptions = ()=>{
+    const selectedBrand = carBrandSelect.value;
+    const selectedModel = carModelSelect.value;
+    let priceCarModel = selectedBrand !== '' && selectedModel !== '' ? priceInfo[selectedBrand][selectedModel] : 0;
+    let price = priceCarModel;
+        price *= getRadioChecked(radioFuel);
+        price *= getRadioChecked(radioCondition);
+        price *= getRadioChecked(radioOwners);
+        price *= getRadioChecked(radioPayment);
+    const getPriceEngine = calculateEngineCapacity();
+    price *= getPriceEngine;
+    return price
+};
+
+const updateResultText = () => {
+    const price = choosingCarOptions();
+    const formatter = new Intl.NumberFormat('ru-RU');
+    formatter.format(price);
+    result.textContent = price != null && !isNaN(price) ? `Итого: стоимость ${price} руб.` : '';
+};
+
+carBrandSelect.addEventListener('change', () =>{
+    setDisabledSelect();
     choosingCarBrand();
-    calculatePrice();
+});
+
+
+form.addEventListener('input', () =>{
+    updateResultText();
+    getHiddenElem();
 })
 
-
-
+buttonReset.addEventListener('click', ()=>{
+    form.reset();
+    result.textContent = '';
+})
