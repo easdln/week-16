@@ -156,7 +156,7 @@ const updateResultText = () => {
     const price = choosingCarOptions();
     const formatter = new Intl.NumberFormat('ru-RU');
     formatter.format(price);
-    result.textContent = price != null && !isNaN(price) ? `Итого: стоимость ${price} руб.` : '';
+    result.textContent = price != null && !isNaN(price) ? `Итого: стоимость ${formatter.format(price)} руб.` : '';
 };
 
 carBrandSelect.addEventListener('change', () =>{
