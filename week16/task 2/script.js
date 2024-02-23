@@ -187,7 +187,6 @@ form.addEventListener('submit', (event) => {
     } else {
         console.log('Invalid form!!!')
     }
-    console.log('Click!')
 })
 
 const togglePassword = document.querySelector('#togglePassword');

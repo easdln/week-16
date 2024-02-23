@@ -173,4 +173,13 @@ form.addEventListener('input', () =>{
 buttonReset.addEventListener('click', ()=>{
     form.reset();
     result.textContent = '';
+    setDisabledSelect();
 })
+
+let key = 0;
+const obj = {
+    one: 1,
+    two:2,
+    three:3,
+}
+console.log(obj[key])
